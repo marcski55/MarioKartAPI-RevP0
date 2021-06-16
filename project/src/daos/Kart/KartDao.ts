@@ -1,65 +1,54 @@
-import { IUser } from '@entities/User';
+import { IKart } from '@entities/Kart';
+import * as AWS from 'aws-sdk';
 
 //* this is the file to put DB interactions in
 // TODO: Edit to fit Kart Data
 
-export interface IUserDao {
-    getOne: (email: string) => Promise<IUser | null>;
-    getAll: () => Promise<IUser[]>;
-    add: (user: IUser) => Promise<void>;
-    update: (user: IUser) => Promise<void>;
-    delete: (id: number) => Promise<void>;
+const dynamoClient = new AWS.DynamoDB.DocumentClient();
+const TABLE_NAME = "KartData";
+
+export interface IKartDao{
+    readonly getAllKarts: object;
+    readonly getKartByName: object;
+    readonly addOrUpdateKart: object;
+    readonly deleteKart: object;
 }
 
-class UserDao implements IUserDao {
+class KartDao implements IKartDao {
+    readonly getAllKarts = async () => {
+        const params = {
+            TableName: TABLE_NAME,
+        };
+        return await dynamoClient.scan(params).promise();
+    };
 
+    readonly getKartByName = async (name: string) => {
+        const params = {
+            TableName: TABLE_NAME,
+            Key: {
+                name
+            }
+        };
+        return await dynamoClient.get(params).promise();
+    };
 
-    /**
-     * @param email
-     */
-    public getOne(email: string): Promise<IUser | null> {
-        // TODO
-        return Promise.resolve(null);
-    }
+    readonly addOrUpdateKart = async (kart: IKart) => {
+        const params = {
+            TableName: TABLE_NAME,
+            Item: kart,
+        }
+        return await dynamoClient.put(params).promise();
+    };
 
-
-    /**
-     *
-     */
-    public getAll(): Promise<IUser[]> {
-         // TODO
-        return Promise.resolve([]);
-    }
-
-
-    /**
-     *
-     * @param user
-     */
-    public async add(user: IUser): Promise<void> {
-         // TODO
-        return Promise.resolve(undefined);
-    }
-
-
-    /**
-     *
-     * @param user
-     */
-    public async update(user: IUser): Promise<void> {
-         // TODO
-        return Promise.resolve(undefined);
-    }
-
-
-    /**
-     *
-     * @param id
-     */
-    public async delete(id: number): Promise<void> {
-         // TODO
-        return Promise.resolve(undefined);
+    readonly deleteKart = async (name: string) => {
+        const params = {
+            TableName: TABLE_NAME,
+            Key: {
+                name
+            }
+        };
+        return await dynamoClient.delete(params).promise();
     }
 }
 
-export default UserDao;
+export default KartDao;
