@@ -1,16 +1,14 @@
 import { Router } from 'express';
-// import { getAllUsers, addOneUser, updateOneUser, deleteOneUser } from './Users';
+import { getAll, getOne, addOrUpdate, delKart } from './Karts';
 
-// TODO - Add HTTP Verbs to this file.
-
-// User-route
-// const userRouter = Router();
-// userRouter.get('/all', getAllUsers);
-// userRouter.post('/add', addOneUser);
-// userRouter.put('/update', updateOneUser);
-// userRouter.delete('/delete/:id', deleteOneUser);
+const kartRouter = Router();
+kartRouter.get('/karts', getAll);
+kartRouter.get('/karts/:name', getOne);
+kartRouter.post('/add', addOrUpdate);
+kartRouter.put('/update', addOrUpdate);
+kartRouter.delete('/delete/:id', delKart);
 
 // Export the base-router
 const baseRouter = Router();
-// baseRouter.use('/users', userRouter);
+baseRouter.use('/karts', kartRouter);
 export default baseRouter;

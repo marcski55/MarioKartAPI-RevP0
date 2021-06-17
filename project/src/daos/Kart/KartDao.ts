@@ -1,9 +1,6 @@
 import { IKart } from '@entities/Kart';
 import * as AWS from 'aws-sdk';
 
-//* this is the file to put DB interactions in
-// TODO: Edit to fit Kart Data
-
 const dynamoClient = new AWS.DynamoDB.DocumentClient();
 const TABLE_NAME = "KartData";
 

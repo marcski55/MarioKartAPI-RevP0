@@ -1,75 +1,76 @@
 import StatusCodes from 'http-status-codes';
 import { Request, Response } from 'express';
 
-import UserDao from '@daos/User/UserDao.mock';
+import KartDao from '@daos/Kart/KartDao';
 import { paramMissingError } from '@shared/constants';
+import Kart from '@entities/Kart';
 
-const userDao = new UserDao();
+const kartDao = new KartDao();
 const { BAD_REQUEST, CREATED, OK } = StatusCodes;
 
-//* This is the file to put function definitions for the end points
-
 /**
- * Get all users.
+ * Get all karts.
  * 
  * @param req 
  * @param res 
  * @returns 
  */
-export async function getAllUsers(req: Request, res: Response) {
-    const users = await userDao.getAll();
-    return res.status(OK).json({users});
+export async function getAll(req: Request, res: Response) {
+    const karts = await kartDao.getAllKarts();
+    return res.status(OK).json({karts});
 }
 
-
 /**
- * Add one user.
+ * Get one kart.
  * 
  * @param req 
  * @param res 
  * @returns 
  */
-export async function addOneUser(req: Request, res: Response) {
-    const { user } = req.body;
-    if (!user) {
+ export async function getOne(req: Request, res: Response) {
+    const { name } = req.params;
+    const kart = await kartDao.getKartByName(name);
+    return res.status(OK).json({kart});
+}
+
+/**
+ * Add or update (replace) kart.
+ * 
+ * @param req 
+ * @param res 
+ * @returns 
+ */
+export async function addOrUpdate(req: Request, res: Response) {
+    const kartData = req.body;
+    const kart = new Kart(
+        kartData.name, 
+        kartData.type,
+        kartData.speed,
+        kartData.acceleration,
+        kartData.weight,
+        kartData.handling,
+        kartData.miniTraction,
+        kartData.traction
+    );
+    if (!kart) {
         return res.status(BAD_REQUEST).json({
             error: paramMissingError,
+            required: "name, type, speed, acceleration, weight, handling, miniTraction, Traction"
         });
     }
-    await userDao.add(user);
+    await kartDao.addOrUpdateKart(kart);
     return res.status(CREATED).end();
 }
 
-
 /**
- * Update one user.
+ * Delete one kart.
  * 
  * @param req 
  * @param res 
  * @returns 
  */
-export async function updateOneUser(req: Request, res: Response) {
-    const { user } = req.body;
-    if (!user) {
-        return res.status(BAD_REQUEST).json({
-            error: paramMissingError,
-        });
-    }
-    user.id = Number(user.id);
-    await userDao.update(user);
-    return res.status(OK).end();
-}
-
-
-/**
- * Delete one user.
- * 
- * @param req 
- * @param res 
- * @returns 
- */
-export async function deleteOneUser(req: Request, res: Response) {
-    const { id } = req.params;
-    await userDao.delete(Number(id));
+export async function delKart(req: Request, res: Response) {
+    const { name } = req.params;
+    await kartDao.deleteKart(name);
     return res.status(OK).end();
 }
