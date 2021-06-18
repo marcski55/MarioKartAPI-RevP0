@@ -1,6 +1,4 @@
 const {DynamoDBClient, PutItemCommand, GetItemCommand, DeleteItemCommand} = require ("@aws-sdk/client-dynamodb");
-const AWS_ACCESS_KEY_ID="AKIA5773HFDMZICERVNO"
-const AWS_SECRET_ACCESS_KEY="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"
 const REGION = "us-east-2";
 const ddb = new DynamoDBClient({region: REGION});
 // export{ddb};
