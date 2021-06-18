@@ -3,7 +3,7 @@ import { getAll, getOne, addOrUpdate, delKart } from './Karts';
 
 const kartRouter = Router();
 kartRouter.get('/all', getAll);
-kartRouter.get('/:name', getOne);
+kartRouter.get('/one', getOne);
 kartRouter.post('/add', addOrUpdate);
 kartRouter.put('/update', addOrUpdate);
 kartRouter.delete('/delete/:id', delKart);

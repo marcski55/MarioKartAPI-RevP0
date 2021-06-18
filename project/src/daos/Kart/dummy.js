@@ -16,4 +16,4 @@ const getKartByName = async (name) => {
     };
     console.log( await ddb.send(new GetItemCommand(params)) );
 };
-getKartByName();
+getKartByName("name");
