@@ -1,14 +1,13 @@
 import { Router } from 'express';
-import { getAll, getOne, addOrUpdate, delKart } from './Karts';
+import { getKart, addKart, updateKart, delKart } from './Karts';
 
 const kartRouter = Router();
-kartRouter.get('/all', getAll);
-kartRouter.get('/one', getOne);
-kartRouter.post('/add', addOrUpdate);
-kartRouter.put('/update', addOrUpdate);
-kartRouter.delete('/delete/:id', delKart);
+kartRouter.get('/:name', getKart);
+kartRouter.post('/:name', addKart);
+kartRouter.put('/:name', updateKart);
+kartRouter.delete('/:name', delKart);
 
 // Export the base-router
 const baseRouter = Router();
-baseRouter.use('/karts', kartRouter);
+baseRouter.use('/kart', kartRouter);
 export default baseRouter;

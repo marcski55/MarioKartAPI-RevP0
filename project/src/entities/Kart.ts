@@ -5,11 +5,11 @@ export interface IKart {
     acceleration: number;
     weight: number;
     handling: number;
-    miniTraction: number;
     traction: number;
+    miniTraction: number;
 }
 
-class Kart implements IKart {
+export class Kart implements IKart {
 
     constructor(
         public name: string,
@@ -18,9 +18,7 @@ class Kart implements IKart {
         public acceleration: number,
         public weight: number,
         public handling: number,
-        public miniTraction: number,
-        public traction: number
+        public traction: number,
+        public miniTraction: number
     ) {}
 }
-
-export default Kart;
