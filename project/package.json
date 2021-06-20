@@ -1,10 +1,11 @@
 {
   "name": "revatureproject0",
   "version": "0.0.1",
+  "type": "module",
   "scripts": {
-    "build": "./node_modules/.bin/ts-node build.ts",
+    "build": "tsc",
     "lint": "eslint . --ext .ts",
-    "start": "node -r module-alias/register ./dist --env=production",
+    "start": "node --experimental-specifier-resolution=node -r module-alias/register ./dist --env=production",
     "start:dev": "nodemon",
     "test": "jest"
   },
