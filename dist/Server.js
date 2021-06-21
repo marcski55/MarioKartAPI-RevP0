@@ -1,10 +1,11 @@
+/* eslint-disable no-console */
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import express from 'express';
 import StatusCodes from 'http-status-codes';
 import 'express-async-errors';
-import { kartRouter, wheelRouter, gliderRouter } from './routes';
+import { kartRouter, partRouter } from './routes';
 const app = express();
 const { BAD_REQUEST } = StatusCodes;
 /*******************************************************************************
@@ -23,8 +24,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 // Add APIs
 app.use('/api/kart', kartRouter);
-app.use('/api/wheel', wheelRouter);
-app.use('/api/glider', gliderRouter);
+app.use('/api/part', partRouter);
 // Print API errors
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err, req, res, next) => {

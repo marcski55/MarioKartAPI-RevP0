@@ -1,20 +1,20 @@
 import StatusCodes from 'http-status-codes';
 import { Request, Response } from 'express';
 
-import { KartDao } from '../../daos/Kart/KartDao';
+import { PartDao } from '../../daos/Part/Dao';
 import { paramMissingError, requiredParameters } from '../../shared/constants';
-import { Kart } from '../../entities/Kart';
+import { Part } from '../../entities/Part';
 
 const { BAD_REQUEST, ACCEPTED } = StatusCodes;
-const kartDao = new KartDao();
+const partDao = new PartDao();
 
 /**
- * Update a kart object from the database.
+ * Update a part object from the database.
  * @param {Request} req - HTTP request
  * @param {Response} res - HTTP response
  * @returns Response with status code
  */
-export async function updateKart(req: Request, res: Response) {
+export async function updatePart(req: Request, res: Response) {
   /** Extract new information from request. */
   const { name } = req.params;
   const newInfo = req.body;
@@ -30,13 +30,13 @@ export async function updateKart(req: Request, res: Response) {
     'miniTraction' in newInfo
   ){
     /** Get info from database, only change newly provided data and send. */
-    const oldInfo = JSON.parse(JSON.stringify(await kartDao.getKartDB(name)));
+    const oldInfo = JSON.parse(JSON.stringify(await partDao.getPartDB(name)));
     if('Error' in oldInfo){
       return res.status(BAD_REQUEST).json(oldInfo);
     } else {
-      const kart = new Kart(
+      const part = new Part(
         name,
-        'type' in newInfo ? newInfo.type : oldInfo.KartType.S,
+        'type' in newInfo ? newInfo.type : oldInfo.PartType.S,
         'speed' in newInfo ? newInfo.speed : parseInt(oldInfo.Speed.N),
         'accleration' in newInfo ?
           newInfo.acceleration : parseInt(oldInfo.Acceleration.N),
@@ -46,7 +46,7 @@ export async function updateKart(req: Request, res: Response) {
         'miniTraction' in newInfo ?
           newInfo.miniTraction : parseInt(oldInfo.MiniTraction.N)
       );
-      const status = await kartDao.updateKartDB(kart, parseInt(oldInfo.id.N));
+      const status = await partDao.updatePartDB(part, parseInt(oldInfo.id.N));
       return res.status(ACCEPTED).json(status).end();
     }
   }

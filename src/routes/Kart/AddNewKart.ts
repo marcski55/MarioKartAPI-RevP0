@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 
 import { KartDao } from '../../daos/Kart/KartDao';
 import { paramMissingError, requiredParameters } from '../../shared/constants';
-import {Kart } from '../../entities/Kart';
+import { Kart } from '../../entities/Kart';
 
 const { BAD_REQUEST, CREATED } = StatusCodes;
 const kartDao = new KartDao();
