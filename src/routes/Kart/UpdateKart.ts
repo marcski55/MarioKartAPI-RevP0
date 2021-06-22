@@ -37,14 +37,14 @@ export async function updateKart(req: Request, res: Response) {
       const kart = new Kart(
         name,
         'type' in newInfo ? newInfo.type : oldInfo.KartType.S,
-        'speed' in newInfo ? newInfo.speed : parseInt(oldInfo.Speed.N),
-        'accleration' in newInfo ?
-          newInfo.acceleration : parseInt(oldInfo.Acceleration.N),
-        'weight' in newInfo ? newInfo.weight : parseInt(oldInfo.Weight.N),
-        'handling' in newInfo ? newInfo.handling : parseInt(oldInfo.Handling.N),
-        'traction' in newInfo ? newInfo.traction : parseInt(oldInfo.Traction.N),
+        'speed' in newInfo ? newInfo.speed : parseFloat(oldInfo.Speed.N),
+        'acceleration' in newInfo ?
+          newInfo.acceleration : parseFloat(oldInfo.Acceleration.N),
+        'weight' in newInfo ? newInfo.weight : parseFloat(oldInfo.Weight.N),
+        'handling' in newInfo ? newInfo.handling : parseFloat(oldInfo.Handling.N),
+        'traction' in newInfo ? newInfo.traction : parseFloat(oldInfo.Traction.N),
         'miniTraction' in newInfo ?
-          newInfo.miniTraction : parseInt(oldInfo.MiniTraction.N)
+          newInfo.miniTraction : parseFloat(oldInfo.MiniTraction.N)
       );
       const status = await kartDao.updateKartDB(kart, parseInt(oldInfo.id.N));
       return res.status(ACCEPTED).json(status).end();
