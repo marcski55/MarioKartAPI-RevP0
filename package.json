@@ -1,13 +1,13 @@
 {
   "name": "revatureproject0",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "build": "tsc",
     "lint": "eslint . --ext .ts",
     "start": "node --experimental-specifier-resolution=node -r module-alias/register ./dist --env=production",
     "start:dev": "nodemon",
-    "test": "jest"
+    "test": "node --experimental-vm-modules node_modules/.bin/jest"
   },
   "nodemonConfig": {
     "watch": [
@@ -87,6 +87,7 @@
     "@types/find": "^0.2.1",
     "@types/fs-extra": "^9.0.11",
     "@types/http-status-codes": "^1.2.0",
+    "@types/jest": "^26.0.23",
     "@types/jsonfile": "^6.0.0",
     "@types/morgan": "^1.9.2",
     "@types/node": "^15.12.4",
