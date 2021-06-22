@@ -36,7 +36,7 @@ export const getKartDB = async (kartName: string) => {
   }
 
   /** By default, data is in a single-item array. Extract it. */
-  let kartData : object | undefined = data.Items?.shift();
+  const kartData = data.Items?.shift();
 
   /** Check that data was actually received. If not, return an error. */
   if(kartData){
