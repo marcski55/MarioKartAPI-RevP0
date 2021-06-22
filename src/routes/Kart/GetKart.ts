@@ -25,12 +25,12 @@ const kartDao = new KartDao();
       const kart = new Kart(
           kartData.name.S,
           kartData.KartType.S,
-          parseInt(kartData.Speed.N),
-          parseInt(kartData.Acceleration.N),
-          parseInt(kartData.Weight.N),
-          parseInt(kartData.Handling.N),
-          parseInt(kartData.Traction.N),
-          parseInt(kartData.MiniTraction.N)
+          parseFloat(kartData.Speed.N),
+          parseFloat(kartData.Acceleration.N),
+          parseFloat(kartData.Weight.N),
+          parseFloat(kartData.Handling.N),
+          parseFloat(kartData.Traction.N),
+          parseFloat(kartData.MiniTraction.N)
       );
       return res.status(OK).json(kart);
   }

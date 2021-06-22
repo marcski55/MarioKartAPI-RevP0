@@ -18,7 +18,7 @@ export async function getPart(req, res) {
         return res.status(BAD_REQUEST).json(partData);
     }
     else {
-        const part = new Part(partData.name.S, partData.PartType.S, parseInt(partData.Speed.N), parseInt(partData.Acceleration.N), parseInt(partData.Weight.N), parseInt(partData.Handling.N), parseInt(partData.Traction.N), parseInt(partData.MiniTraction.N));
+        const part = new Part(partData.name.S, partData.PartType.S, parseFloat(partData.Speed.N), parseFloat(partData.Acceleration.N), parseFloat(partData.Weight.N), parseFloat(partData.Handling.N), parseFloat(partData.Traction.N), parseFloat(partData.MiniTraction.N));
         return res.status(OK).json(part);
     }
 }
